@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import pool from '../src/db-pool';
+import pool from '../sql/db-pool';
 
 import { InternalError } from '../error/internal.error';
 import { NotFoundError } from '../error/not-found.error';
@@ -11,6 +11,8 @@ export class NewsController {
             const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC');
             res.json(result.rows as Article[]);
         } catch (err: any) {
+            console.log(err);
+            
             throw new InternalError("Cannot Get Articles")
         }
     }

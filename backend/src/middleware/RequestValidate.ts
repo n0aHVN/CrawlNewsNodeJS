@@ -1,9 +1,9 @@
-// src/middleware/validate.ts
+// src/middleware/RequestValidate.ts
 import { Request, Response, NextFunction } from 'express';
 import { AnyZodObject, ZodError } from 'zod';
 import { BadRequestError } from '../error/bad-request.error';
 
-export const validate = (schema: AnyZodObject) => (
+export const requestValidate = (schema: AnyZodObject) => (
   req: Request,
   res: Response,
   next: NextFunction

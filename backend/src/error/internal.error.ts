@@ -3,8 +3,8 @@ import { CustomError } from "./custom.error";
 export class InternalError extends CustomError {
     statusCode = 500;
 
-    constructor(message: string) {
-        super(message);
+    constructor(msg: string) {
+        super(msg);
         Object.setPrototypeOf(this, InternalError.prototype);
     }
 

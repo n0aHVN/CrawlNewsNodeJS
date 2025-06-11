@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import type { Category } from "../dto/category.validator";
 import { InternalError } from "../error/internal.error";
-import pool from "../src/sql/db-pool";
+import pool from "../sql/db-pool";
 
 export class CategoriesController{
     static async getAllCategories(req: Request, res: Response) {

@@ -2,9 +2,9 @@ import { Pool } from 'pg';
 
 const pool = new Pool({
     user: 'postgres',
-    host: 'localhost',
-    database: 'postgres',
     password: '123', // Change this to your actual password
+    host: 'localhost',
+    database: 'NewsDB',
     port: 5432,
     max: 10, // Maximum number of connections in the pool
     idleTimeoutMillis: 30000, // Close idle clients after 30 seconds

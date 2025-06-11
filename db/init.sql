@@ -8,7 +8,7 @@ CREATE TABLE categories (
 CREATE TABLE articles (
     data_id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
-    slug TEXT NOT NULL,
+    slug TEXT NOT NULL UNIQUE,
     content TEXT,
     thumbnail TEXT,
     origin_url TEXT NOT NULL UNIQUE,
