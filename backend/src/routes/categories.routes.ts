@@ -7,5 +7,5 @@ const router= Router();
 // Get all categories
 router.get('/categories',CategoriesController.getAllCategories);
 
-router.post('/categories',requestValidate(CategorySchema), CategoriesController.addCategory)
+router.post('/categories',requestValidate(CategorySchema), CategoriesController.addCategory);
 export {router as CategoriesRouter}

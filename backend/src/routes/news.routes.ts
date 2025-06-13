@@ -13,4 +13,5 @@ router.get('/articles/:slug', NewsController.getArticleBySlug);
 
 router.post('/articles',requestValidate(ArticleSchema), NewsController.addArticle);
 
+
 export {router as NewsRouter};

@@ -11,8 +11,6 @@ export class NewsController {
             const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC');
             res.json(result.rows as Article[]);
         } catch (err: any) {
-            console.log(err);
-            
             throw new InternalError("Cannot Get Articles")
         }
     }

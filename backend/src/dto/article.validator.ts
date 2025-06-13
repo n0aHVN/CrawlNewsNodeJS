@@ -5,7 +5,6 @@ export const ArticleSchema = z.object({
   title: z.string().min(1),
   slug: z.string().min(1),
   content: z.string().nullable(),
-  thumbnail: z.string().nullable(),
   origin_url: z.string().url(),
   published_at: z.string().datetime().nullable(),
   category_id: z.number().int().nullable(),
