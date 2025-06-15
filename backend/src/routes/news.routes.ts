@@ -13,5 +13,6 @@ router.get('/articles/:slug', NewsController.getArticleBySlug);
 
 router.post('/articles',requestValidate(ArticleSchema), NewsController.addArticle);
 
+router.get('/articles/check/:data_id', NewsController.checkIfExist);
 
 export {router as NewsRouter};

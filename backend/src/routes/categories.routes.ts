@@ -8,4 +8,6 @@ const router= Router();
 router.get('/categories',CategoriesController.getAllCategories);
 
 router.post('/categories',requestValidate(CategorySchema), CategoriesController.addCategory);
+// Get category by slug
+router.get('/categories/:slug', CategoriesController.getCategoryIdBySlug);
 export {router as CategoriesRouter}

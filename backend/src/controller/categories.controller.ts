@@ -9,7 +9,13 @@ export class CategoriesController{
         const result = await pool.query('SELECT * FROM categories ORDER BY id');
         res.status(201).json(result.rows as Category[]);
     }
-    
+    static async getCategoryIdBySlug(req: Request, res: Response){
+        const result = await pool.query('SELECT id FROM categories WHERE slug = $1', [req.params.slug]);
+        if (result.rowCount === 0) {
+            throw new InternalError("Cannot find Category by slug");
+        }
+        res.status(200).json(result.rows[0]);
+    }
     static async addCategory(req: Request, res: Response) {
         const { name, slug } = req.body;
         const isExist = await CategoriesController.checkIfExist(name, slug);

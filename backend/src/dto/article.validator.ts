@@ -2,6 +2,7 @@
 import { z } from 'zod';
 
 export const ArticleSchema = z.object({
+  data_id: z.string(),
   title: z.string().min(1),
   slug: z.string().min(1),
   content: z.string().nullable(),

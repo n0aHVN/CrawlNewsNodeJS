@@ -11,6 +11,7 @@ export class NewsController {
             const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC');
             res.json(result.rows as Article[]);
         } catch (err: any) {
+            console.error(err);
             throw new InternalError("Cannot Get Articles")
         }
     }
@@ -24,24 +25,35 @@ export class NewsController {
             }
             res.json(result.rows[0] as Article);
         } catch (err: any) {
+            console.log(err);
             throw new InternalError("Cannot Get Articles")
         }
     }
 
     static async addArticle(req: Request, res: Response) {
         try {
-            const { title, content, slug, category_id, published_at } = req.body;
+            const { data_id, title, content, slug, category_id, origin_url, author, published_at } = req.body;
             const result = await pool.query(
-                `INSERT INTO articles (title, content, slug, category_id, published_at)
-                 VALUES ($1, $2, $3, $4, $5)
+                `INSERT INTO articles (data_id, title, content, slug, category_id, origin_url, author, published_at)
+                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
                  RETURNING *`,
-                [title, content, slug, category_id, published_at]
+                [data_id, title, content, slug, category_id, origin_url, author, published_at]
             );
             res.status(201).json(result.rows[0] as Article);
         } catch (err: any) {
+            console.error(err);
             throw new InternalError("Cannot Add Article")
         }
     }
 
-    
+    static async checkIfExist(req: Request, res: Response)  {
+        try {
+            const { data_id } = req.params;
+            const result = await pool.query('SELECT 1 FROM articles WHERE data_id = $1 LIMIT 1', [data_id]);
+            res.json({ exists: result.rowCount! > 0 });
+        } catch (err: any) {
+            console.error(err);
+            throw new InternalError("Cannot Check Article Existence");
+        }
+    }
 }

@@ -4,10 +4,10 @@ import dotenv from 'dotenv';
 import { crawlNewLinks, crawlNewsContent } from "./job/crawl-news.job";
 dotenv.config();
 
-const start = () =>{
-    // crawlCategories();
-    // crawlNewLinks();
-    crawlNewsContent();
+const start = async () =>{
+    await crawlCategories();
+    await crawlNewLinks();
+    await crawlNewsContent();
 };
 
 start();
