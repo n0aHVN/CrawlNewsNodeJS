@@ -1,5 +1,5 @@
 import Express, { json } from 'express';
-import { ErrorHandlerMiddleware } from '../middleware/error-handler.middleware';
+import { ErrorHandlerMiddleware } from './middleware/error-handler.middleware';
 
 const app = Express();
 app.use(json());
