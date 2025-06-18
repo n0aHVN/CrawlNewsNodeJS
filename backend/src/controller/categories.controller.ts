@@ -2,17 +2,17 @@ import { Request, Response } from "express";
 import type { Category } from "../dto/category.validator";
 import { InternalError } from "../error/internal.error";
 import pool from "../sql/db-pool";
-import { BadRequestError } from "../error/bad-request.error";
+import { NotFoundError } from "../error/not-found.error";
 
 export class CategoriesController{
     static async getAllCategories(req: Request, res: Response) {
         const result = await pool.query('SELECT * FROM categories ORDER BY id');
-        res.status(201).json(result.rows as Category[]);
+        res.status(200).json(result.rows as Category[]);
     }
     static async getCategoryIdBySlug(req: Request, res: Response){
         const result = await pool.query('SELECT id FROM categories WHERE slug = $1', [req.params.slug]);
         if (result.rowCount === 0) {
-            throw new InternalError("Cannot find Category by slug");
+            throw new NotFoundError("Cannot find Category by slug");
         }
         res.status(200).json(result.rows[0]);
     }
