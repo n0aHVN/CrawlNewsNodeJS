@@ -4,14 +4,21 @@ import pool from '../sql/db-pool';
 import { InternalError } from '../error/internal.error';
 import { NotFoundError } from '../error/not-found.error';
 import { Article } from '../dto/article.validator';
+import { logger } from '../utils/logger';
 
 export class NewsController {
     static async getAllArticles(req: Request, res: Response) {
         try {
-            const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC');
-            res.json(result.rows as Article[]);
+            // Pagination parameters
+            const page = parseInt(req.query.page as string) || 1;
+            const pageSize = 10;
+            const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC LIMIT $1 OFFSET $2', [pageSize, (page - 1) * pageSize]);
+            res.json({
+                articles: result.rows,
+                totalPages: Math.ceil(result.rowCount! / pageSize)
+            });
         } catch (err: any) {
-            console.error(err);
+            logger.error(err);
             throw new InternalError("Cannot Get Articles")
         }
     }
@@ -25,7 +32,7 @@ export class NewsController {
             }
             res.json(result.rows[0] as Article);
         } catch (err: any) {
-            console.log(err);
+            logger.error(err);
             throw new InternalError("Cannot Get Articles")
         }
     }
@@ -41,7 +48,7 @@ export class NewsController {
             );
             res.status(201).json(result.rows[0] as Article);
         } catch (err: any) {
-            console.error(err);
+            logger.error(err);
             throw new InternalError("Cannot Add Article")
         }
     }
@@ -52,8 +59,9 @@ export class NewsController {
             const result = await pool.query('SELECT 1 FROM articles WHERE data_id = $1 LIMIT 1', [data_id]);
             res.json({ exists: result.rowCount! > 0 });
         } catch (err: any) {
-            console.error(err);
+            logger.error(err);
             throw new InternalError("Cannot Check Article Existence");
         }
     }
+    
 }
