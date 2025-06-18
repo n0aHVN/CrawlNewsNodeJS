@@ -97,13 +97,7 @@ export const crawlNewsContent = async () => {
             let slug = href.replace(/-([^-.]+)\.htm$/, "");
             slug = slug.replace("/", "");
             // News Content 
-            let content = $('h2[class=detail-sapo]').text().trim();
-            content += "\n";
-            $('div.detail-cmain p').toArray().forEach((el) => {
-                content += $(el).text().trim();
-                content += '\n';
-            });
-
+            const content = $('div.detail__cmain').html()?.trim() || '';
             const data = {
                 data_id: dataId,
                 title,

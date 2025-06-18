@@ -22,7 +22,8 @@ const NewsPage = () => {
       <h1>{news.title}</h1>
       <h2>Author: {news.author}</h2>
       <h2>Published At: {news.published_at}</h2>
-      <p>{news.content}</p>
+      {/* This is a html */}
+      <div dangerouslySetInnerHTML={{ __html: news.content }} />
       {/* Add more fields as needed */}
     </div>
   );
