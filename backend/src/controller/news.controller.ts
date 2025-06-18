@@ -10,12 +10,12 @@ export class NewsController {
     static async getAllArticles(req: Request, res: Response) {
         try {
             // Pagination parameters
-            const page = parseInt(req.query.page as string) || 1;
-            const pageSize = 10;
-            const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC LIMIT $1 OFFSET $2', [pageSize, (page - 1) * pageSize]);
+            // const page = parseInt(req.query.page as string) || 1;
+            // const pageSize = 10;
+            // const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC LIMIT $1 OFFSET $2', [pageSize, (page - 1) * pageSize]);
+            const result = await pool.query('SELECT * FROM articles ORDER BY published_at DESC');
             res.json({
                 articles: result.rows,
-                totalPages: Math.ceil(result.rowCount! / pageSize)
             });
         } catch (err: any) {
             logger.error(err);
@@ -61,6 +61,23 @@ export class NewsController {
         } catch (err: any) {
             logger.error(err);
             throw new InternalError("Cannot Check Article Existence");
+        }
+    }
+
+    static async getArticlesByCategorySlug(req: Request, res: Response) {
+        try {
+            const { category_slug } = req.params;
+            const result = await pool.query(
+                `SELECT a.* FROM articles a
+                 JOIN categories c ON a.category_id = c.id
+                 WHERE c.slug = $1
+                 ORDER BY a.published_at DESC`,
+                [category_slug]
+            );
+            res.json(result.rows);
+        } catch (err: any) {
+            logger.error(err);
+            throw new InternalError("Cannot Get Articles by Category");
         }
     }
     

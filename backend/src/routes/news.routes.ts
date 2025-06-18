@@ -15,4 +15,6 @@ router.post('/articles',requestValidate(ArticleSchema), NewsController.addArticl
 
 router.get('/articles/check/:data_id', NewsController.checkIfExist);
 
+router.get('/categories/:category_slug/articles', NewsController.getArticlesByCategorySlug);
+
 export {router as NewsRouter};
