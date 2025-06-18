@@ -6,7 +6,7 @@ const CategoryList = ({ categories, selectedCategory, onSelect }) => (
       <li
         key={cat.id}
         style={{ cursor: 'pointer', fontWeight: selectedCategory === cat.id ? 'bold' : 'normal' }}
-        onClick={() => onSelect(cat.id)}
+        onClick={() => onSelect(cat.slug)}
       >
         {cat.name}
       </li>

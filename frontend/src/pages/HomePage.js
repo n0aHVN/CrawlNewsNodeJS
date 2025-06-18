@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CategoryList from '../components/CategoryList';
 import ArticleList from '../components/ArticleList';
-import { fetchCategories, fetchArticlesByCategory } from '../services/api';
+import { fetchCategories, fetchArticlesByCategory, fetchAllArticles } from '../services/api';
 
 function HomePage() {
   const [categories, setCategories] = useState([]);
@@ -20,7 +20,9 @@ function HomePage() {
         .then(setArticles)
         .catch(err => console.error('Failed to fetch articles:', err));
     } else {
-      setArticles([]);
+      fetchAllArticles()
+        .then(setArticles)
+        .catch(err => console.error('Failed to fetch articles:', err));
     }
   }, [selectedCategory]);
 
