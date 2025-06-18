@@ -1,0 +1,19 @@
+.category-list {
+  list-style: none;
+  padding: 0;
+}
+
+.category-item {
+  cursor: pointer;
+  padding: 6px 0;
+}
+
+.category-item:hover {
+  font-weight: bold;
+  color: #0077cc;
+}
+
+.category-item.selected {
+  font-weight: bold;
+  color: #0077cc;
+}

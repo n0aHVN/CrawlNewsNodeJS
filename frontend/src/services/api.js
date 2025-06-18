@@ -21,3 +21,10 @@ export async function fetchAllArticles() {
   const data = await res.json();
   return data.articles;
 }
+
+export async function fetchArticleBySlug(slug) {
+  const res = await fetch(`${API_BASE}/articles/${slug}`);
+  if (!res.ok) throw new Error('Failed to fetch article');
+  const data = await res.json();
+  return data;
+}
