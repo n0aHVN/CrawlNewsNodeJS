@@ -6,6 +6,8 @@ import cron from "node-cron";
 dotenv.config();
 
 const start = async () =>{
+    if (process.env.NODE_ENV !== 'production') {
+    }
     await crawlCategories();
     await crawlNewLinks();
     await crawlNewsContent();

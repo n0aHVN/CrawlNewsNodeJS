@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: crawling_news_backend
+    ports:
+      - "3000:3000"
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: crawling_news_frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend
+    environment:
+      - POSTGRES_HOST=localhost
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: crawling_news_worker
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

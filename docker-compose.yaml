@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    container_name: crawling_news_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=NewsDB
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: crawling_news_backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: crawling_news_frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - backend
+
+  worker:
+    build:
+      context: ./worker
+      dockerfile: Dockerfile
+    container_name: crawling_news_worker
+    depends_on:
+      - backend
+
+volumes:
+  db_data:

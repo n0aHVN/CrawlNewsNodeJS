@@ -14,9 +14,9 @@ export const crawlCategories = async () => {
         href = href?.replace('/', '');
 
         const slug = href || '';
-
+        
         const url = `${process.env.BACKEND_URL}/categories`;
-
+        
         try {
             const res = await axios.post(url, {
                 name: text,

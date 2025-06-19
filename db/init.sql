@@ -47,4 +47,3 @@ VALUES (
     'John Doe',
     NOW()
 );
-
