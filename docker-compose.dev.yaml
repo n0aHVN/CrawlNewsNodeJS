@@ -8,6 +8,8 @@ services:
     container_name: crawling_news_backend
     ports:
       - "3000:3000"
+    environment:
+      - POSTGRES_HOST=host.docker.internal
   frontend:
     build:
       context: ./frontend
@@ -17,8 +19,7 @@ services:
       - "3001:3001"
     depends_on:
       - backend
-    environment:
-      - POSTGRES_HOST=localhost
+
 
   worker:
     build:
