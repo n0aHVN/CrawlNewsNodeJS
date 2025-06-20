@@ -64,11 +64,11 @@ export class NewsController {
         }
     }
 
-    static async getArticlesByCategorySlug(req: Request, res: Response) {
+    static async getArticlesTitleByCategorySlug(req: Request, res: Response) {
         try {
             const { category_slug } = req.params;
             const result = await pool.query(
-                `SELECT a.* FROM articles a
+                `SELECT a.data_id, a.title, a.slug FROM articles a
                  JOIN categories c ON a.category_id = c.id
                  WHERE c.slug = $1
                  ORDER BY a.published_at DESC`,

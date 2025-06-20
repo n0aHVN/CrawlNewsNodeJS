@@ -133,6 +133,6 @@ router.get('/articles/check/:data_id', NewsController.checkIfExist);
  *       404:
  *         description: Category or articles not found
  */
-router.get('/categories/:category_slug/articles', NewsController.getArticlesByCategorySlug);
+router.get('/categories/:category_slug/articles', NewsController.getArticlesTitleByCategorySlug);
 
 export {router as NewsRouter};

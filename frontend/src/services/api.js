@@ -8,7 +8,7 @@ export async function fetchCategories() {
   return data;
 }
 
-export async function fetchArticlesByCategory(categoryName) {
+export async function fetchArticlesTitleByCategory(categoryName) {
   const res = await fetch(`${API_BASE}/categories/${categoryName}/articles`);
   if (!res.ok) throw new Error('Failed to fetch articles');
   const data = await res.json();
